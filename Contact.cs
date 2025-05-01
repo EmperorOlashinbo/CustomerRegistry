@@ -31,7 +31,7 @@ public class Contact
         return !string.IsNullOrEmpty(FirstName) &&
                !string.IsNullOrEmpty(LastName) &&
                !string.IsNullOrEmpty(Address.City) &&
-               Address.Country != null;
+               Address.Country != default(Countries);
     }
 
     public override string ToString()

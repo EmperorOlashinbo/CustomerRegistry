@@ -9,16 +9,18 @@ public class ContactForm : Form
     private Button? btnOK, btnCancel;
     private Contact contact;
     private GroupBox? grpName, grpEmailPhone, grpAddress;
-    private bool isEditMode;
+    private bool isEditMode = false;
 
     public ContactForm()
     {
+        isEditMode = false; // Explicitly set the default value
         InitializeComponents();
         contact = new Contact();
     }
 
     public ContactForm(Contact contact)
     {
+        isEditMode = true; // Set to true when editing an existing contact
         InitializeComponents();
         this.contact = new Contact(contact);
         PopulateFields();

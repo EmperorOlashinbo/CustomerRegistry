@@ -79,7 +79,7 @@ public class MainForm : Form
         lstCustomers.Items.AddRange(customerManager.GetCustomerInfoStrings());
     }
 
-    private void LstCustomers_SelectedIndexChanged(object sender, EventArgs e)
+    private void LstCustomers_SelectedIndexChanged(object? sender, EventArgs e)
     {
         int index = lstCustomers!.SelectedIndex;
         if (customerManager.CheckIndex(index))
@@ -100,7 +100,8 @@ public class MainForm : Form
         }
     }
 
-    private void BtnAdd_Click(object sender, EventArgs e)
+
+    private void BtnAdd_Click(object? sender, EventArgs e)
     {
         try
         {
@@ -119,7 +120,7 @@ public class MainForm : Form
         }
     }
 
-    private void BtnEdit_Click(object sender, EventArgs e)
+    private void BtnEdit_Click(object? sender, EventArgs e)
     {
         try
         {
@@ -154,7 +155,7 @@ public class MainForm : Form
         }
     }
 
-    private void BtnDelete_Click(object sender, EventArgs e)
+    private void BtnDelete_Click(object? sender, EventArgs e)
     {
         try
         {
