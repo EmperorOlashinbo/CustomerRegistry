@@ -9,6 +9,7 @@ public class ContactForm : Form
     private Button? btnOK, btnCancel;
     private Contact contact;
     private GroupBox? grpName, grpEmailPhone, grpAddress;
+    private bool isEditMode;
 
     public ContactForm()
     {
@@ -101,7 +102,7 @@ public class ContactForm : Form
         Controls.AddRange(new Control[] { grpName, grpEmailPhone, grpAddress, btnOK, btnCancel });
 
         // Form properties
-        Text = "Contact Information";
+        Text = isEditMode ? "Edit customer" : "Add new customer";
         Size = new System.Drawing.Size(400, 450);
         FormBorderStyle = FormBorderStyle.FixedDialog;
         MaximizeBox = false;

@@ -7,7 +7,7 @@ public class Customer
 
     public Customer(Contact contact)
     {
-        this.id = Guid.NewGuid().ToString().Substring(0, 3); // Shortened ID for display
+        this.id = Guid.NewGuid().ToString().Substring(0, 3);
         this.contact = new Contact(contact);
     }
 
@@ -30,7 +30,6 @@ public class Customer
 
     public override string ToString()
     {
-        // Format: ID  Name (Surname, first name)  Office phone  Office E-Mail
         string officeEmail = string.IsNullOrEmpty(contact.Email.Work) ? "N/A" : contact.Email.Work;
         return string.Format("{0,-5} {1,-25} {2,-15} {3,-20}",
             id,

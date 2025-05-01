@@ -4,33 +4,25 @@ using System.Windows.Forms;
 public class MainForm : Form
 {
     private CustomerManager customerManager;
-    private ListBox lstCustomers;
-    private TextBox txtDetails;
-    private Button btnAdd, btnEdit, btnDelete;
-    private Label lblListHeader, lblDetailsHeader;
+    private ListBox? lstCustomers;
+    private TextBox? txtDetails;
+    private Button? btnAdd, btnEdit, btnDelete;
+    private Label? lblListHeader, lblDetailsHeader;
 
     public MainForm()
     {
         customerManager = new CustomerManager();
-        lstCustomers = new ListBox(); // Initialize lstCustomers
-        txtDetails = new TextBox();   // Initialize txtDetails
-        btnAdd = new Button();        // Initialize btnAdd
-        btnEdit = new Button();       // Initialize btnEdit
-        btnDelete = new Button();     // Initialize btnDelete
-        lblListHeader = new Label();  // Initialize lblListHeader
-        lblDetailsHeader = new Label(); // Initialize lblDetailsHeader
         InitializeComponents();
     }
-
 
     private void InitializeComponents()
     {
         // Header for ListBox
         lblListHeader = new Label
         {
-            Text = "ID   Name (Surname, first name)   Office phone   Office E-Mail",
+            Text = "ID    Name (Surname, first name)  Office phone    Office E-Mail",
             Location = new System.Drawing.Point(20, 5),
-            Size = new System.Drawing.Size(500, 15), // Increased width to match ListBox
+            Size = new System.Drawing.Size(500, 15),
             Font = new System.Drawing.Font("Courier New", 8)
         };
 
@@ -70,46 +62,45 @@ public class MainForm : Form
         Controls.AddRange(new Control[] { lblListHeader, lstCustomers, lblDetailsHeader, txtDetails, btnAdd, btnEdit, btnDelete });
 
         // Form properties
-        Text = "Customer Registry";
+        Text = "Customer Registry By Ibrahim";
         Size = new System.Drawing.Size(960, 400);
         StartPosition = FormStartPosition.CenterScreen;
 
         // Event handlers
-        lstCustomers.SelectedIndexChanged += LstCustomers_SelectedIndexChanged;
-        btnAdd.Click += BtnAdd_Click;
-        btnEdit.Click += BtnEdit_Click;
-        btnDelete.Click += BtnDelete_Click;
+        lstCustomers.SelectedIndexChanged += new EventHandler(LstCustomers_SelectedIndexChanged);
+        btnAdd.Click += new EventHandler(BtnAdd_Click);
+        btnEdit.Click += new EventHandler(BtnEdit_Click);
+        btnDelete.Click += new EventHandler(BtnDelete_Click);
     }
 
     private void RefreshCustomerList()
     {
-        lstCustomers.Items.Clear();
+        lstCustomers!.Items.Clear();
         lstCustomers.Items.AddRange(customerManager.GetCustomerInfoStrings());
     }
 
-    private void LstCustomers_SelectedIndexChanged(object? sender, EventArgs e)
+    private void LstCustomers_SelectedIndexChanged(object sender, EventArgs e)
     {
-        int index = lstCustomers.SelectedIndex;
+        int index = lstCustomers!.SelectedIndex;
         if (customerManager.CheckIndex(index))
         {
             Customer? customer = customerManager.GetCustomer(index);
             if (customer != null)
             {
-                txtDetails.Text = customer.Contact.ToString();
+                txtDetails!.Text = customer.Contact.ToString();
             }
             else
             {
-                txtDetails.Text = string.Empty;
+                txtDetails!.Text = string.Empty;
             }
         }
         else
         {
-            txtDetails.Text = string.Empty;
+            txtDetails!.Text = string.Empty;
         }
     }
 
-
-    private void BtnAdd_Click(object? sender, EventArgs e)
+    private void BtnAdd_Click(object sender, EventArgs e)
     {
         try
         {
@@ -128,12 +119,11 @@ public class MainForm : Form
         }
     }
 
-
-    private void BtnEdit_Click(object? sender, EventArgs e)
+    private void BtnEdit_Click(object sender, EventArgs e)
     {
         try
         {
-            int index = lstCustomers.SelectedIndex;
+            int index = lstCustomers!.SelectedIndex;
             if (!customerManager.CheckIndex(index))
             {
                 MessageBox.Show("Please select a customer to edit.", "Selection Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -149,6 +139,7 @@ public class MainForm : Form
 
             using (ContactForm contactForm = new ContactForm(customer.Contact))
             {
+                contactForm.Text = "Edit customer";
                 if (contactForm.ShowDialog() == DialogResult.OK)
                 {
                     customerManager.ChangeCustomer(contactForm.ContactData, index);
@@ -163,11 +154,11 @@ public class MainForm : Form
         }
     }
 
-    private void BtnDelete_Click(object? sender, EventArgs e)
+    private void BtnDelete_Click(object sender, EventArgs e)
     {
         try
         {
-            int index = lstCustomers.SelectedIndex;
+            int index = lstCustomers!.SelectedIndex;
             if (!customerManager.CheckIndex(index))
             {
                 MessageBox.Show("Please select a customer to delete.", "Selection Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -176,7 +167,7 @@ public class MainForm : Form
 
             customerManager.DeleteCustomer(index);
             RefreshCustomerList();
-            txtDetails.Text = string.Empty;
+            txtDetails!.Text = string.Empty;
         }
         catch (Exception ex)
         {
