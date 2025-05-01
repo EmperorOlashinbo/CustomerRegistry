@@ -8,6 +8,7 @@ public class Contact
     public Phone Phone { get; set; }
     public Email Email { get; set; }
 
+    // Constructor for creating a contact with default values
     public Contact()
     {
         FirstName = string.Empty;
@@ -16,7 +17,7 @@ public class Contact
         Phone = new Phone();
         Email = new Email();
     }
-
+    // Constructor for creating a contact with specific values
     public Contact(Contact other)
     {
         FirstName = other.FirstName;
@@ -26,6 +27,7 @@ public class Contact
         Email = new Email(other.Email);
     }
 
+    // Constructor for creating a contact with specific values
     public bool CheckData()
     {
         return !string.IsNullOrEmpty(FirstName) &&
@@ -33,7 +35,7 @@ public class Contact
                !string.IsNullOrEmpty(Address.City) &&
                Address.Country != default(Countries);
     }
-
+    // Constructor for creating a contact with specific values
     public override string ToString()
     {
         System.Text.StringBuilder sb = new System.Text.StringBuilder();

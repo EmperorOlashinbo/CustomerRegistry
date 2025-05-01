@@ -14,7 +14,7 @@ public class Address
         City = string.Empty;
         Country = Countries.Sverige;
     }
-
+    // Constructor for creating an address with specific values
     public Address(string street, string zipCode, string city, Countries country)
     {
         Street = street;
@@ -22,7 +22,7 @@ public class Address
         City = city;
         Country = country;
     }
-
+    // Constructor for creating an address with specific values
     public Address(Address other)
     {
         Street = other.Street;

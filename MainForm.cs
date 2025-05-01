@@ -20,6 +20,7 @@ public class MainForm : Form
         // Header for ListBox
         lblListHeader = new Label
         {
+            // Set the text for the header
             Text = "ID    Name (Surname, first name)  Office phone    Office E-Mail",
             Location = new System.Drawing.Point(20, 5),
             Size = new System.Drawing.Size(500, 15),
@@ -29,6 +30,7 @@ public class MainForm : Form
         // ListBox
         lstCustomers = new ListBox
         {
+            // Set the location and size of the ListBox
             Location = new System.Drawing.Point(20, 20),
             Size = new System.Drawing.Size(500, 300),
             Font = new System.Drawing.Font("Courier New", 8)
@@ -37,6 +39,7 @@ public class MainForm : Form
         // Header for TextBox
         lblDetailsHeader = new Label
         {
+            // Set the text for the header
             Text = "Contact Details",
             Location = new System.Drawing.Point(530, 5),
             Size = new System.Drawing.Size(200, 15),
@@ -46,6 +49,7 @@ public class MainForm : Form
         // TextBox
         txtDetails = new TextBox
         {
+            // Set the location and size of the TextBox
             Location = new System.Drawing.Point(530, 20),
             Size = new System.Drawing.Size(400, 300),
             Multiline = true,
@@ -72,18 +76,20 @@ public class MainForm : Form
         btnEdit.Click += new EventHandler(BtnEdit_Click);
         btnDelete.Click += new EventHandler(BtnDelete_Click);
     }
-
+    // Load the customer list when the form loads
     private void RefreshCustomerList()
     {
         lstCustomers!.Items.Clear();
         lstCustomers.Items.AddRange(customerManager.GetCustomerInfoStrings());
     }
-
+    // Event handler for ListBox selection change
     private void LstCustomers_SelectedIndexChanged(object? sender, EventArgs e)
     {
+        // Clear the details TextBox when no customer is selected
         int index = lstCustomers!.SelectedIndex;
         if (customerManager.CheckIndex(index))
         {
+            // Get the selected customer and display their details
             Customer? customer = customerManager.GetCustomer(index);
             if (customer != null)
             {
@@ -99,8 +105,7 @@ public class MainForm : Form
             txtDetails!.Text = string.Empty;
         }
     }
-
-
+    // Event handler for Add button click
     private void BtnAdd_Click(object? sender, EventArgs e)
     {
         try
@@ -119,7 +124,7 @@ public class MainForm : Form
             MessageBox.Show($"An error occurred while adding a customer: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
-
+    // Event handler for Edit button click
     private void BtnEdit_Click(object? sender, EventArgs e)
     {
         try
@@ -131,18 +136,20 @@ public class MainForm : Form
                 return;
             }
 
-            Customer? customer = customerManager.GetCustomer(index);
+            Customer? customer = customerManager.GetCustomer(index); // Get the selected customer
             if (customer == null)
             {
                 MessageBox.Show("The selected customer could not be found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            using (ContactForm contactForm = new ContactForm(customer.Contact))
+            using (ContactForm contactForm = new ContactForm(customer.Contact)) // Pass the customer data to the form
             {
+                // Set the form title and show it
                 contactForm.Text = "Edit customer";
                 if (contactForm.ShowDialog() == DialogResult.OK)
                 {
+                    // Update the customer data if the user clicked OK
                     customerManager.ChangeCustomer(contactForm.ContactData, index);
                     RefreshCustomerList();
                     lstCustomers.SelectedIndex = index;
@@ -154,18 +161,19 @@ public class MainForm : Form
             MessageBox.Show($"An error occurred while editing a customer: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
-
+    // Event handler for Delete button click
     private void BtnDelete_Click(object? sender, EventArgs e)
     {
         try
         {
+            // Check if a customer is selected
             int index = lstCustomers!.SelectedIndex;
             if (!customerManager.CheckIndex(index))
             {
                 MessageBox.Show("Please select a customer to delete.", "Selection Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
+            // Confirm deletion
             customerManager.DeleteCustomer(index);
             RefreshCustomerList();
             txtDetails!.Text = string.Empty;

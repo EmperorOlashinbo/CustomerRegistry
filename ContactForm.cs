@@ -115,7 +115,7 @@ public class ContactForm : Form
         btnOK.Click += BtnOK_Click;
         btnCancel.Click += BtnCancel_Click;
     }
-
+    // Populate fields with existing contact data if in edit mode
     private void PopulateFields()
     {
         txtFirstName!.Text = contact.FirstName ?? string.Empty;
@@ -129,7 +129,7 @@ public class ContactForm : Form
         txtPrivateEmail!.Text = contact.Email.Personal ?? string.Empty;
         txtOfficeEmail!.Text = contact.Email.Work ?? string.Empty;
     }
-
+    // Validate and save contact data when OK button is clicked
     private void BtnOK_Click(object? sender, EventArgs e)
     {
         // Validate country selection
@@ -160,7 +160,7 @@ public class ContactForm : Form
             DialogResult = DialogResult.None; // Prevent form from closing
         }
     }
-
+    // Confirm cancellation when Cancel button is clicked
     private void BtnCancel_Click(object? sender, EventArgs e)
     {
         var result = MessageBox.Show("Are you sure you want to cancel?", "Confirm Cancel", MessageBoxButtons.YesNo, MessageBoxIcon.Question);

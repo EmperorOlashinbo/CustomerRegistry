@@ -4,7 +4,7 @@
     {
         private System.ComponentModel.IContainer components = null;
 
-        protected override void Dispose(bool disposing)
+        protected override void Dispose(bool disposing) // Clean up any resources being used
         {
             if (disposing && (components != null))
             {
@@ -12,9 +12,10 @@
             }
             base.Dispose(disposing);
         }
-
+        
         private void InitializeComponent()
         {
+            // Initialize components
             this.lstCustomers = new System.Windows.Forms.ListBox();
             this.txtDetails = new System.Windows.Forms.TextBox();
             this.btnAdd = new System.Windows.Forms.Button();
@@ -86,6 +87,7 @@
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+        // Event handlers for buttons and listbox
         private void LstCustomers_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Add logic to handle the event when a customer is selected from the list
@@ -94,25 +96,25 @@
                 txtDetails.Text = lstCustomers.SelectedItem.ToString();
             }
         }
+        // Event handlers for button clicks
         private void BtnAdd_Click(object sender, EventArgs e)
         {
             // Add logic to handle the Add button click event
             MessageBox.Show("Add button clicked!");
         }
+        // Event handlers for button clicks
         private void BtnEdit_Click(object sender, EventArgs e)
         {
             // Add logic to handle the Edit button click event
             MessageBox.Show("Edit button clicked!");
         }
+        // Event handlers for button clicks
         private void BtnDelete_Click(object sender, EventArgs e)
         {
             // Add logic to handle the Delete button click event
             MessageBox.Show("Delete button clicked!");
         }
-
-
-
-
+        // Form components
         private System.Windows.Forms.ListBox lstCustomers;
         private System.Windows.Forms.TextBox txtDetails;
         private System.Windows.Forms.Button btnAdd;
